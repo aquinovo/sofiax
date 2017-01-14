@@ -1,0 +1,69 @@
+html, body, .container-fluid {
+    height:100%;
+}
+.homeScreen{
+    background-color: #E4C231;
+    background: -webkit-radial-gradient( #E4C231 , #E2BB00);
+}
+.bgGris{
+    background: #EDEDED;
+}
+
+.footer{
+    background: #354050;
+    height: 12%;
+}
+.btnInactivo{
+    width: 200px;
+    height: 45px;
+    background: #E4C231;
+    border: 2px solid #fff;
+    color: white;
+    margin-bottom: 15px;
+}
+
+.btnActivo{
+    width: 200px;
+    height: 45px;
+    background: #354050;
+    color: #FFFFFF;
+}
+.btnSlides{
+    width: 150px;
+    height: 45px;
+    background: #354050;
+    color: #FFFFFF;
+    float: right;
+    margin: 0 20px;
+}
+.btnCancel{
+    font-size: 48px;
+}
+.homeTXT{
+    color: #FFFFFF;
+}
+.canvasApa{
+    height: 40%;
+    width: 90%;
+    background: #000;
+}
+.txtContainer{
+    height: auto;
+    width: 70%;
+    background: #fff;
+    margin: -10%  0 0 15% ;
+    position: fixed;
+    border-radius: 10px;
+
+}
+.txtSlides{
+    margin: 10px 20px;
+}
+.inputSize{
+    width: 50%;
+}
+.error{
+    color: red;
+    font-style: italic;
+    font-size: 13px;
+}
