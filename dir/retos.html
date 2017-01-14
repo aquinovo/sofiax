@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>RETOS</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="../css/uiSofia.css">
+    <link rel=stylesheet href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/flat-ui.css">
+    <script type="text/javascript" src="../js/jquery-3.1.1.min.js"></script>
+
+   
+</head>
+<body class="container-fluid homeScreen">
+
+<!--Margen inicial-->
+ <div  class="row"  style="margin-top:0.5%;">
+     
+ </div>
+ 
+<!--FILA BOTON PRINCIPAL-->
+ <div class="row" ng-app="apiApp" ng-controller="apiAppCtrl as vm">
+     <div class="col-md-12">
+          <!---puntos disponibles--->
+          <div class="col-md-4"style="background:#fff;">
+          	<span>Puntos disponibles en el reto:</span>
+          	<span name="dato" class="label label-success pull-right" style="margin:5px;">100 PTS.</span>
+          </div>
+           <!---comparativa puntos usuario vs hi-socore--->
+           <div class="col-md-4 text-center" style="background:#F5F5F5;">
+          	<span name="dato" class="label label-warning pull-left" style="margin:5px;">MIS PUNTOS 00000</span>
+          	<span class="glyphicon glyphicon-option-vertical"></span>
+          	<span name="dato" class="label label-info pull-right" style="margin:5px;">PUNTAJE MÁS ALTO 00000</span>
+          </div>
+            <!---boton izquierdo-->
+           <div class="col-md-4">
+          	     <div class="btn-group pull-right" style="margin-top:0%; margin-right:5%;">
+            <a data-toggle="dropdown" class="btn dropdown-toggle" href="#" type="button">
+             <img class="img-thumbnail" id="img" width="80" height="100" />
+             <span style="margin:70% 0 0 -15% ;" class="caret"></span></a>
+            <ul role="menu" class="dropdown-menu">
+            <li ng-click="vm.ir_a_escritorio()"><a >Mi Escritorio <span class="badge pull-right" id="span0"></span></a></li>
+              <li><a href="#">Mi Calificacion <span class="badge pull-right" name="span"></span></a></li>
+              <li><a href="#">Avance del bloque <span class="bagde pull-right" name="span"></span></a></li>
+              <li><a ng-click="vm.imprimeimg()" href="#" data-toggle="modal" data-target="#myModal">Cambiar imagen de perfil</a></li>
+              <li class="divider"></li>
+              <li><a href="home.html"><span style="color:#E1AF48;"class="glyphicon glyphicon-remove-circle"></span>&nbsp;Cerrar sesión</a></li>
+            </ul>
+                
+          </div>
+          </div>
+         
+         
+     </div>
+     
+         <!--MODAL IMAGENES DEL BOTON IZQUIERDO-->
+                <div id="myModal" style="margin-top:10%;" class="modal fade" role="dialog">
+                  <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h6 class="modal-title small">Selecciona una imagen</h6>
+                      </div>
+                      <div class="modal-body text-center">
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+     
+     
+ </div>
+ 
+ <!---RETOS PANEL--->
+ 
+ 	<!---PREGUNTAS------>
+<div class="row" ng-app="apiApp" ng-controller="apiAppCtrl as vm">
+          <div class="col-xs-12 col-sm-8 col-md-8 col-xs-offset-0 col-sm-offset-2 col-md-offset-2 ">
+          <!---titulo del bloque/dinamico---->
+          <b><span name="span"></span>|
+			  <span name="span"></span></b>
+         <!---preguntas---->
+          <br>
+          <span name="span"></span>
+          <br>
+          <span>Respuestas:</span>
+          </div>
+          <div class="col-md-12">
+             <!--MODAL-->
+                <div id="myModal2" style="margin-top:5%;" class="modal fade" role="dialog">
+                  <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Aprendes rápido</h4>
+                      </div>
+                      <div class="modal-body text-center">
+                        <img class="img-responsive" style="margin:0 auto;" width="80px" src="../img/badges/badge-14.png">
+                        <span >¡Genio!</span>
+                        <p>Sigue así y consigue 20 medallas de este tipo para obtener un punto extra en tu calificación final.</p>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+       </div>  
+</div> 
+	<!---RESPUESTAS------>
+<div class="row" ng-app="apiApp" ng-controller="apiAppCtrl as vm">
+          <div class="col-xs-12 col-sm-8 col-md-8 col-xs-offset-0 col-sm-offset-2 col-md-offset-2 ">
+				   <div class="list-group">
+					  <a name="span" onclick="calificar(5)" class="list-group-item" href="#"></a>
+					  <a name="span" onclick="calificar(6)" class="list-group-item" href="#"></a>
+					  <a name="span" onclick="calificar(7)" class="list-group-item" href="#"></a>
+					</div>
+          </div>
+            
+</div>
+	<!---RETROALIMENTACIÖN--->	
+<div class="row">
+          <div class="col-xs-8 col-xs-offset-2 well">
+				<div class="col-xs-2">
+					<img id="icono" class="img-responsive pull-right" src="../img/retosApaNormal.png" width="100%" style="min-width:40px;" >
+				</div>	  
+				<div class="col-xs-10" style="background:#C4C4C4;">
+					<p name="span">Concentrate y contesta la pregunta; sino puedes <b>consulta las diapositivas</b>, revisa el video nuevamente o <b>usa una pista</b>. Si usas pistas obtendrás menos puntos que al hacerlo sin ellas.</p>
+				</div>	  
+		   </div>
+			  
+        
+           
+           
+</div>
+            
+
+<!---Footer---->
+
+<div class="row" ng-app="apiApp" ng-controller="apiAppCtrl as vm">
+    <div class="col-xs-10 col-xs-offset-1">
+        <nav class="navbar navbar-default navbar-embossed" role="navigation">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
+                <span class="sr-only">Toggle navigation</span>
+              </button>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-collapse-01">
+              <ul class="nav navbar-nav navbar-left">
+                
+
+                <li class="dropup">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Índice <b class="caret"></b></a>
+                  <span class="dropdown-arrow"></span>
+                  <ul class="dropdown-menu" id="aa">
+                  </ul>
+                </li>
+                
+                  <li><a id="diap" href="/diap/diapositiva1.pdf" target="_blank">Diapositivas<span class="navbar-unread">1</span></a></li>
+                <li><a onclick="solucion()" >Solución</a></li>
+                <li><a onclick="video()" href="#">Video</a></li>
+               
+               </ul>
+               
+               
+               <div id="form" class="navbar-form navbar-right" role="search">
+                <div class="form-group">
+                  <button name="span" class="btn btn-inverse" onclick= "redirecionar()" disabled="true" id="myBtn">CONTINUAR</button>
+                </div>
+              </div>
+            </div><!-- /.navbar-collapse -->
+          </nav><!-- /navbar -->
+    </div>
+</div>
+
+<script src="../js/angular.min.js"></script>
+<script>
+  
+  var img = document.getElementById("img");
+  var imagenes=document.getElementsByClassName("modal-body text-center");
+  var icono=document.getElementById("icono");
+  var span=document.getElementsByName("span");
+  var dato=document.getElementsByName("dato");
+  var texto = document.getElementById("aa");
+  var diap= document.getElementById("diap");
+  var id=getParameterByName("id");
+  var id_tema=getParameterByName("id_tema");
+  var trivia=getParameterByName("trivia");
+  
+  diap.setAttribute("href","/diap/diapositiva"+id_tema+".pdf");
+
+  function getParameterByName(name) {
+        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+        return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+  }
+
+  if(trivia==""){
+    trivia=0;
+  }
+  trivia=parseInt(trivia);
+  var tam=0;
+  var puntos=100;
+  var respuestas=new Array();
+  var arreglo = [5,6,7];
+  angular
+        .module('apiApp', [])
+        .controller('apiAppCtrl', ['$http', controladorPrincipal]);
+    function controladorPrincipal($http){
+        var vm=this;    
+         window.addEventListener= function(){
+          $http.get('/escritorio/'+id).success(function(respuesta){              
+              vm.recuperacion=respuesta;
+              dato[1].innerHTML = "MIS PUNTOS: "+respuesta[0].puntos;
+              span[0].innerHTML = respuesta[0].calificacion_final+"/100";
+              span[1].innerHTML = respuesta[0].puntos+"%";
+              $http.get('/avatar/'+vm.recuperacion[0].id_avatar).success(function(respuesta){
+                  img.setAttribute("src","../img/"+respuesta[0].nombre+".png");  
+              });
+
+              $http.get('/escritorio/').success(function(respuesta){ 
+                  dato[2].innerHTML = "RECORD: IRVING"+respuesta[0].puntaje;
+              });
+
+              $http.get('/reto/'+respuesta[0].id).success(function(respuesta) {
+              var uno = 1;
+              texto.innerHTML="";
+              var mayor = 1;
+              for(x in respuesta){
+                if( mayor < respuesta[x].id_tema)
+                  mayor = respuesta[x].id_tema;
+              }
+              $http.get('/tema/').success(function(respuesta) {
+                texto.innerHTML="";
+                for(x in respuesta){
+                  var a = parseInt(x)+1;
+                  if(respuesta[x].id <= mayor){
+                    texto.innerHTML+='<li><a href="contenido.html?id_tema='+respuesta[x].id+'&id='+id+'">'+a+". "+respuesta[x].nombre+' </a></li>';
+                  }
+                  else
+                  {
+                    texto.innerHTML+='<li style="margin:10px">'+a+". "+respuesta[x].nombre+'</li>';
+                  }
+                }
+              });
+            });
+
+          });
+          $http.get('/tema/'+id_tema).success(function(respuesta){              
+                span[2].innerHTML="Tema "+respuesta[0].id+".";
+                span[3].innerHTML=respuesta[0].nombre;
+          });
+          $http.get('/trivia/'+id_tema).success(function(respuesta){            
+                span[4].innerHTML="Pregunta "+id_tema+"."+(trivia+1)+". "+respuesta[trivia].pregunta;
+                tam=respuesta.length;
+                vm.trivia=respuesta[trivia];
+                arreglo=arreglo.sort(function(){return Math.random()-0.5});
+
+                var opciones=opcion(arreglo);
+            
+                $http.get('/respuesta/'+respuesta[trivia].id+"/1").success(function(respuesta){ 
+                      span[arreglo[0]].innerHTML=opciones[arreglo[0]]+respuesta[0].opcion;
+                      respuestas[0]=respuesta[0].opcion;
+                      //respuestas[3]=respuesta[1].opcion;
+                });
+
+                $http.get('/respuesta/'+respuesta[trivia].id+"/0").success(function(respuesta){        
+                      span[arreglo[1]].innerHTML=opciones[arreglo[1]]+respuesta[0].opcion;
+                      span[arreglo[2]].innerHTML=opciones[arreglo[2]]+respuesta[1].opcion;
+                      respuestas[1]=respuesta[0].opcion;
+                      respuestas[2]=respuesta[1].opcion;
+                });
+
+          });
+        }
+        vm.imprimeimg=function(){
+          $http.get('/avatar/').success(function(respuesta){
+            imagenes[0].innerHTML="";
+            for(x=0;x<respuesta.length-1;x++){
+              imagenes[0].innerHTML+='<a href="#" ><img id='+respuesta[x].id+' style ="margin:5px;" src="../img/'+respuesta[x].nombre+'.png" width="20%" onclick="fun('+respuesta[x].id+')"></a>';
+            }
+          });         
+        }   
+        
+        vm.ir_a_escritorio=function(){
+            console.log("ir a escritorio");
+            $http.get('/usuario/'+id+"/"+id_tema).success(function(respuesta){
+                console.log(respuesta[0]);
+                window.location="escritorio.html?valor="+respuesta[0].nombre_usuario;
+            });
+
+        }    
+    
+
+        fun=function(entrada){
+              
+              $.ajax({
+                url: '/escritorio/',
+                type: 'PUT',
+                data: { id_alumno: id, id_avatar: entrada},
+                success: function(informacion){
+                      console.log(informacion);
+                }
+              });
+              $http.get('/escritorio/'+id).success(function(respuesta){             
+                    vm.recuperacion=respuesta;
+                    //escritorio=respuesta;
+                    $http.get('/avatar/'+vm.recuperacion[0].id_avatar).success(function(respuesta){
+                        img.setAttribute("src","../img/"+respuesta[0].nombre+".png");  
+                    });
+                });
+        }
+        inicializar=function(){
+              var id=null;
+              var id_escritorio=vm.recuperacion[0].id;
+              var id_trivia=vm.trivia.id;
+              var puntaje=puntos;
+              var intento=1;
+              if(puntos==100)
+                 medallin=1;
+              else 
+                 medallin=0;
+
+              var text = '{"id":'+id+',"id_escritorio":'+id_escritorio+',"id_trivia":'+id_trivia+',"puntaje":'+puntos+',"intento":'+intento+',"medallin":'+medallin+',"id_tema":'+id_tema+'}';
+              var obj = JSON.parse(text);
+              return(obj);
+        }
+        redirecionar=function(){
+          
+          $http.get('/reto/'+vm.trivia.id+'/'+id_tema+'/'+vm.recuperacion[0].id).success(function(respuesta){
+                        if(respuesta.length==0){
+                            var dato=inicializar();
+                            $http.post('/reto', dato)
+                                  .success(function(data) {
+                                          console.log(data);               
+                                  })
+                                  .error(function(data) {
+                                      console.log('Error:' + data);
+                            });
+                            var actpuntje=vm.recuperacion[0].puntos+puntos;      
+                            $.ajax({
+                              url: '/escritorio/',
+                              type: 'PUT',
+                              data: { id_usuario: id, puntaje: actpuntje},
+                              success: function(informacion){
+                                    console.log(informacion);
+                              }
+                            });    
+                        }else{
+                            console.log("actualizar");
+                            var intentos=respuesta[0].intento+1;
+                            var actpuntje=vm.recuperacion[0].puntos+(puntos-respuesta[0].puntaje);
+
+                            $.ajax({
+                              url: '/escritorio/',
+                              type: 'PUT',
+                              data: { id_usuario: id, puntaje: actpuntje},
+                              success: function(informacion){
+                                    console.log(informacion);
+                              }
+                            });    
+
+                            $.ajax({
+                              url: '/reto/',
+                              type: 'PUT',
+                              data: { id:respuesta[0].id,puntaje: puntos, intento: intentos},
+                              success: function(informacion){
+                                    console.log(informacion);
+                              }
+                            });          
+                        } 
+                        if(trivia+1 == tam){
+                            window.location="slide.html?id="+id+"&id_tema="+id_tema;
+                         }
+                         else
+                           window.location="retos.html?id="+id+"&id_tema="+id_tema+"&trivia="+(trivia+1);
+          }); 
+           
+
+        }
+        calificar=function(entrada){
+           
+           if(span[entrada].innerHTML==("a) "+respuestas[0]) || span[entrada].innerHTML==("b) "+respuestas[0]) || span[entrada].innerHTML==("c) "+respuestas[0])){
+                 console.log("correcto");
+                 span[8].innerHTML="Oye muy bien. Lo has logrado, debes ser una clase de genio."; 
+                 span[9].disabled=false;
+                 icono.setAttribute("src","../img/retosApaPass.png");
+          
+              
+                 span[entrada].setAttribute("class","list-group-item list-group-item-success");
+
+                 
+
+                 var band=0;
+
+                 function haceAlgo(miCallback){
+                    $http.get('/reto/'+vm.trivia.id+'/'+id_tema+'/'+vm.recuperacion[0].id).success(function(respuesta){
+                      if(respuesta.length==0){
+                          band=1; 
+                          miCallback(band);  
+                      }
+                    }); 
+                  } 
+                  haceAlgo(function(){
+                        console.log(band);
+                        if(puntos==100 && band==1){
+                          $('#myModal2').modal('show');
+                          console.log("premio");
+                        }
+
+                  });
+
+           }
+           else if (puntos==100){
+                 span[8].innerHTML="¡Uff! Cerca pero no es la repuesta correcta ¡Concéntrate!, te sugiero revisar las diapositivas. Perdiste 25 puntos de los 100 que podías lograr."; 
+                 puntos-=25;
+                 span[entrada].onclick="";
+                 console.log("1 error punto: "+puntos);
+                 icono.setAttribute("src","../img/retosApaMiss.png");
+                 span[entrada].setAttribute("class","list-group-item list-group-item-warning");
+           }
+           else{
+                 span[8].innerHTML="¿Enserio ? Aunque ahora sabes la opción correcta, es mejor que vuelvas a revisar los contenidos. Sólo obtuviste 50 de los 100 puntos posibles. Intenta superar tu puntuación más tarde."; 
+                 puntos-=25;
+                  span[entrada].onclick="";
+                 console.log("error punto: "+puntos);
+                 icono.setAttribute("src","../img/retosApaMiss.png");
+                 span[entrada].setAttribute("class","list-group-item list-group-item-warning");
+           }
+           dato[0].innerHTML = puntos+" PTS."; 
+        }
+        solucion=function(){
+            
+                span[8].innerHTML=respuestas[0];
+                puntos=0; 
+                dato[0].innerHTML = puntos+" PTS."; 
+        }
+        video=function(){
+            
+                window.location="contenido.html?id="+id+"&id_tema="+id_tema;
+        }
+    }
+    Array.prototype.desordenar=function(){
+      var m=this.length-1;
+      for (var i = m - 1; i > 1; i--) {
+        var alea=Math.floor(i*Math.random());
+        var tem=this[i]; this[i]=this[alea]; this[alea]=temp;
+      }
+    }
+    opcion=function(arreglo){
+          var array=new Array();
+          array[5]="a) ";
+          array[6]="b) ";
+          array[7]="c) ";
+          return array;
+        }
+
+</script>
+
+<!--Interacciones-->
+<script>
+    $().ready(function(){
+       $(".mypop").popover({
+          placement:"bottom", 
+          content: "<a class='small'>Mi escritorio</a><br><a hrer='#' class ='small'>Cambiar imagen de perfil</a><hr><a href='#' class='small'>Cerrar sesión</a><br>",
+           html:true,
+           container:'body',
+           
+           
+       });
+    });
+</script>
+ 
+ <!---Configuraciones tema--->
+  <script type="text/javascript" src="../js/vendor/video.js"></script>
+    <script src="../js/flat-ui.min.js"></script>
+  
+</body>
+</html>

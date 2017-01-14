@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Tareas</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="../css/uiSofia.css">
+    <link rel=stylesheet href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/flat-ui.css">
+    <script type="text/javascript" src="../js/jquery-3.1.1.min.js"></script>
+
+</head>
+<body class="container-fluid homeScreen">
+
+<!--Margen inicial-->
+ <div  class="row"  style="margin-top:0%;">
+     
+ </div>
+ 
+<!--FILA BOTON PRINCIPAL-->
+<div class="row" ng-app="apiApp" ng-controller="apiAppCtrl as vm">
+     <div class="col-md-12" >
+            <div class="btn-group pull-right" style="margin-top:0%; margin-right:5%;">   
+            <a data-toggle="dropdown" class="btn dropdown-toggle" href="#" type="button">
+             <!--<img class="img-thumbnail" src="../img/uno.png" width="80"> -->
+             <img class="img-thumbnail" id="img"/>
+             <span style="margin:70% 0 0 -15% ;" class="caret"></span></a>
+            <ul role="menu" class="dropdown-menu">
+            <li id="escribe"></li>
+              <li><a href="#">Mi Calificacion <span class="badge pull-right" id="span1">5/100</span></a></li>
+              <li><a href="#">Avance del bloque<span class="bagde pull-right" id="span2">0%</span></a></li>
+              <li ng-click="vm.imprimeimg()"><a href="#" data-toggle="modal" data-target="#myModal">Cambiar imagen de perfil</a></li>
+              <li class="divider"></li>
+              <li><a href="login.html"><span style="color:#E1AF48;"class="glyphicon glyphicon-remove-circle"></span>&nbsp;Cerrar sesión</a></li>
+            </ul>                
+          </div>
+     </div>
+         <!--MODAL IMAGENES-->
+          <div id="myModal" style="margin-top:10%;" class="modal fade" role="dialog" >
+                  <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h6 class="modal-title small">Selecciona una imagen</h6>
+                      </div>
+                      <div class="modal-body text-center">
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>  
+ </div>
+ 
+<div class="row">
+	<div class="col-xs-10 col-xs-offset-1 bgGris">
+		<div role="tabpanel">
+			<ul class="nav nav-tabs" role="tablist" id="tarea">
+			</ul>
+      <div class="tab-content" id="divv">
+      </div>
+	</div>
+  </div>
+</div>
+
+<!---Footer---->
+
+<div class="row" style="margin:2%;">
+    <div class="col-xs-10 col-xs-offset-1">
+        <nav class="navbar navbar-default navbar-embossed" role="navigation">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
+                <span class="sr-only">Toggle navigation</span>
+              </button>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-collapse-01">
+              <ul class="nav navbar-nav navbar-left">
+                <li class="dropup">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Índice <b class="caret"></b></a>
+                  <span class="dropdown-arrow"></span>
+                  <ul class="dropdown-menu" id="aa">
+                  </ul>
+                </li>
+               </ul>
+               <form class="navbar-form navbar-right" action="indice.html" role="search">
+                <div class="form-group">
+                  <button class="btn btn-inverse">CONTINUAR</button>
+                </div>
+              </form>
+            </div><!-- /.navbar-collapse -->
+          </nav><!-- /navbar -->
+    </div>
+</div>
+<script src="../js/flat-ui.min.js"></script>
+ <script src="../js/angular.min.js"></script>
+<script>
+  
+  var img = document.getElementById("img");
+  var texto = document.getElementById("aa");
+  var span1 = document.getElementById("span1");
+  var span2 = document.getElementById("span2");
+  var bloque = document.getElementById("bloque");
+  var fecha = document.getElementById("fecha");
+  var divv = document.getElementById("divv");
+  var tarea = document.getElementById("tarea");
+  var formulario = document.getElementById("formu");
+  var escribe =document.getElementById("escribe");
+  var imagenes=document.getElementsByClassName("modal-body text-center");
+  img.setAttribute("width","80");
+  angular
+        .module('apiApp', [])
+        .controller('apiAppCtrl', ['$http', controladorPrincipal]);
+    function controladorPrincipal($http){
+        var vm=this; 
+        vm.imprimeimg=function(){
+          $http.get('/avatar/').success(function(respuesta){
+            imagenes[0].innerHTML="";
+            for(x in respuesta){
+              imagenes[0].innerHTML+='<a href="#"><img id='+respuesta[x].id+' style ="margin:5px;" src="../img/'+respuesta[x].nombre+'.png" width="20%"  onclick="fun('+respuesta[x].id+')"/></a>';
+            }
+
+            vm.fun=function(){
+                console.log("Hola");
+            } 
+        });
+
+        }        
+        window.addEventListener= function(evt){
+          var uno=getParameterByName("id");
+          var tem=getParameterByName("id_tema");
+          var idE = 0;
+           console.log("uno ",uno);
+          $http.get('/usuario/'+uno+"/"+uno).success(function(respuesta){   
+            escribe.innerHTML = '<a href="escritorio.html?valor='+respuesta[0].nombre_usuario+'">Mi Escritorio <span class="badge pull-right" id="span0"></span></a>';
+          });
+          $http.get('/escritorio/'+uno).success(function(respuesta){            
+            vm.recuperacion=respuesta;
+            span1.innerHTML = respuesta[0].calificacion_final+"/100";
+            span2.innerHTML = respuesta[0].puntos+"%";
+            idE = respuesta[0].id;
+            $http.get('/avatar/'+vm.recuperacion[0].id_avatar).success(function(respuesta){
+                img.setAttribute("src","../img/"+respuesta[0].nombre+".png");
+
+            });
+          });
+          $http.get('/reto/'+idE).success(function(respuesta) {
+              var uno = 1;
+              texto.innerHTML="";
+              var mayor = 1;
+              for(x in respuesta){
+                if( mayor < respuesta[x].id_tema)
+                  mayor = respuesta[x].id_tema;
+              }
+              $http.get('/tema/').success(function(respuesta) {
+                texto.innerHTML="";
+                for(x in respuesta){
+                  var a = parseInt(x)+1;
+                  if(respuesta[x].id <= mayor){
+                    texto.innerHTML+='<li><a href="retos.html?id_tema='+respuesta[x].id+'">'+a+". "+respuesta[x].nombre+' </a></li>';
+                  }
+                  else
+                  {
+                    texto.innerHTML+='<li style="margin:10px">'+a+". "+respuesta[x].nombre+'</li>';
+                  }
+                }
+              });
+          });
+          var dos="";
+          $http.get('/tema/').success(function(respuesta) {
+            for(x in respuesta){
+              if(respuesta[x].id == tem){
+                dos = '<i>'+respuesta[x].nombre+'</i>';
+              }
+            }
+          });
+          $http.get('/tarea/'+tem).success(function(respuesta) {
+            tarea.innerHTML="";
+            divv.innerHTML = "";
+            console.log(respuesta);
+            for(x in respuesta){
+              var str = respuesta[x].instrucciones;
+              var res = str.split('$'); 
+              var documento = respuesta[x].documento;
+              var texto = '<b>BLOQUE 1</b><br>'+tem+'. '+dos;;
+              var a = parseInt(x)+1;
+              var fecha = respuesta[x].fecha_limite;
+              fecha =fecha.split("-");
+              var dia = fecha[2].split("T");
+              fecha = dia[0]+"/"+fecha[1]+"/"+fecha[0];
+              fecha.toString();
+              var es = "";
+              var tex ="";
+              for(k in res){
+                var b = parseInt(k)+1;
+                es += '<ol class="small">';
+                if( k == 0 )
+                  es += ''+b+'. '+res[0]+'<a class="link" href="../resourses/Tareas/Tema'+tem+'/'+documento+'"><mark>'+documento+'</mark></a>';
+                else
+                  es += ''+b+'. '+res[k]+'';
+                es +='</ol>';
+              }
+              if( a == 1 ){
+                tarea.innerHTML += '<li role="presentation" class="active"><a href="#tarea'+a+'T'+tem+'"  aria-controls="tarea'+a+'T'+tem+'" data-toggle="tab" role="tab">Tarea '+a+'</a></li>';
+                tex = '<div role="tabpanel" class="tab-pane active" id="tarea'+a+'T'+tem+'">';
+              }
+              else{
+                tarea.innerHTML += '<li role="presentation"><a href="#tarea'+a+'T'+tem+'"  aria-controls="tarea'+a+'T'+tem+'" data-toggle="tab" role="tab">Tarea '+a+'</a></li>';
+                tex = '<div role="tabpanel" class="tab-pane" id="tarea'+a+'T'+tem+'">';
+              }
+               divv.innerHTML += tex +'<div class="col-xs-9" style="background:#cccccc;">'+texto+'<br><b>Instrucciones</b>'+es+'<b>Criterios a evaluar</b><ul class="small"><li>Puntualidad en la entrega.</li><li>Confronta conceptos e ideas del tema.</li><li>Coherencia de los argumentos expuestos en la tarea.</li><li>Uso de citas y referencias bibliográficas.</li><li>Ortografía  y redacción.</li></ul><div class="pull-right">Fecha límite de entrega: <label class="label label-danger">'+fecha+'</label></div></div><div id="div2" class="col-xs-3 text-center" name="dos"><br><br><br><br><img src="../img/folder.png" style="max-width:100px; min-width:100px;" ><br><form action="../tarea/upload/'+uno+''+tem+''+a+'" method="POST" enctype="multipart/form-data" id="dos'+a+'"><label class="btn btn-warning">SUBIR ARCHIVOS<input type="file" style="display: none;" name="archivo" id="dos"></label><br><label id="TT'+a+'" class = "btn btn-warning">Enviar<input type="submit" style="display:none;" name="archivo" id = "'+a+'"/></label></form></div></div>'; 
+              
+            }
+          }); 
+          $http.get('/tarea/'+tem).success(function(respuesta) {
+            for(x in respuesta){
+              var a = parseInt(x)+1;
+              cuenta(a);
+            }
+          });
+          function cuenta(a){
+            var d = document.getElementById("TT"+a); 
+              d.addEventListener("click",function(evt){
+                evt.stopPropagation();
+                    crearescritorioperfil(idE,tem,a);
+                    evt.stopPropagation();
+              });
+          } 
+          vm.actualizar=function(){
+            $http.get('/escritorio/'+uno).success(function(respuesta){               
+                vm.recuperacion=respuesta;
+                $http.get('/avatar/'+vm.recuperacion[0].id_avatar).success(function(respuesta){
+                    img.setAttribute("src","../img/"+respuesta[0].nombre+".png");  
+                });
+            });
+          }
+          fun=function(entrada){
+              $.ajax({
+                url: '/escritorio/',
+                type: 'PUT',
+                data: { id_alumno: 1, id_avatar: entrada},
+                success: function(informacion){
+                      console.log(informacion);
+                }
+              });
+              $http.get('/escritorio/'+uno).success(function(respuesta){               
+                vm.recuperacion=respuesta;
+                $http.get('/avatar/'+vm.recuperacion[0].id_avatar).success(function(respuesta){
+                    img.setAttribute("src","../img/"+respuesta[0].nombre+".png"); 
+                });
+            });
+          }
+          fun1=function(a){
+              console.log("hola ");
+          }
+        }
+        function crearescritorioperfil(idE,tem,a){
+          console.log("hola ",a);
+          var hoy = new Date();
+          var dd = hoy.getDate();
+          var mm = hoy.getMonth()+1; 
+          var yyyy = hoy.getFullYear();
+          if(dd<10) {
+            dd='0'+dd
+          } 
+          if(mm<10) {
+            mm='0'+mm
+          } 
+          hoy = yyyy+'-'+mm+'-'+dd;
+          var text = '{ "escritorio_perfil" : { "id":null  , "id_escritorio":"'+idE+'", "id_tema":"'+tem+'" ,"id_tarea":'+a+' ,"calificacion":0 , "fecha_entrega": "'+hoy+'"  } }';
+          var obj = JSON.parse(text);
+
+          $http.post('/escritorio_perfil', obj.escritorio_perfil)
+          .success(function(data) {
+            console.log(data);
+                             
+          })
+          .error(function(data) {
+            console.log('Error:' + data);
+         });
+        }
+    }
+    function getParameterByName(name) {
+        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+        return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+    }
+</script>
+<script>
+    $().ready(function(){
+       $(".mypop").popover({
+          placement:"bottom", 
+          content: "<a class='small'>Mi escritorio</a><br><a hrer='#' class ='small'>Cambiar imagen de perfil</a><hr><a href='#' class='small'>Cerrar sesión</a><br>",
+           html:true,
+           container:'body',
+           
+           
+       });
+    });
+    
+</script>
+<script>
+  
+</script>
+</body>
+</html>

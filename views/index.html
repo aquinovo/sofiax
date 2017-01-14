@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>splash</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <link rel="stylesheet" href="css/uiSofia.css">
+    <link rel=stylesheet href="css/bootstrap.min.css">
+      <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    </head>
+    
+   
+<body class="container-fluid bgGris" onload="move()" >
+    <script type="text/javascript">
+     function move() {
+        var elem = document.getElementById("myBar");
+        var width = 1;
+        var id = setInterval(frame, 20); 
+      function frame() {
+        if (width >= 100) {
+          clearInterval(id);
+       window.location = "dir/home.html";
+           
+        } else {
+            
+               width++;
+               elem.style.width = width + '%';  
+            
+       
+             
+        }
+      }
+         
+    }
+     
+        
+    </script>
+    <div style="height:25%;">
+    </div>
+    <div class="text-center">
+        <img  src="img/logo_Sofiax.png" width="200px" height="auto">
+    </div>
+    <div class="progress center-block" style="width:500px; height:10px;">
+            <div id="myBar" class="progress-bar progress-bar-warning" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+            <span class="sr-only">60% Complete (warning)</span>
+          </div>  
+    </div>
+    <div class="text-center">
+        <span>Iniciando</span>
+    </div>
+        
+</body>
+</html>
