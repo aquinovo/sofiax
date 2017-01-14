@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html ng-app="slidesApp">
+<head>
+    <title>slide3</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="../css/uiSofia.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../Flat-UI-master/less/flat-ui.css">
+    <script src="../js/jquery-3.1.1.min.js"></script>
+    <scritp src="../js/bootstrap.min.js"></scritp>
+    </head>
+    
+   
+<body class="container-fluid bgGris" ng-controller="TextController as text" ng-app="apiApp" ng-controller="apiAppCtrl as vm">
+
+ <div class="row">
+     <div class="col-md-12">
+     </div>
+ </div>
+  <div class="row">
+      <div class="col-xs-6 col-xs-offset-3" style="margin-top:0%;">
+            <img class="img-responsive" ng-src="{{text.products2[count2].image}}" style="margin:0 auto; height:450px;" >
+      </div>
+  </div>
+   <div class="row" >
+       <div class="col-xs-8 col-xs-offset-2 well"  >
+      
+                <h1> </h1>
+                <p>{{text.products2[count2].description}}</p>   
+                <button class="btn btn-inverse pull-right" ng-click="myFunc2()">Continuar<span class="fui-arrow-right"></span></button>
+              
+        </div>
+   </div>
+    
+   <script type="text/javascript" src="../js/angular.min.js"></script>
+ <script type="text/javascript" src="../js/app.js"></script> 
+</body>

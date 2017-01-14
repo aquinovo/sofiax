@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+           
+            <link rel="stylesheet" href="../css/uiSofia.css">
+            <link rel="stylesheet" href="../css/bootstrap.min.css">
+           <link rel="stylesheet" href="../css/flat-ui.css">
+
+            <script src="../js/jquery-3.1.1.min.js"></script>
+            <scritp src="../js/bootstrap.min.js"></scritp>
+        
+  
+
+</head>
+<body class="bgGris container-fluid">
+<div class="row" >
+    <div class="text-center" ng-app="apiApp" ng-controller="apiAppCtrl as vm">
+       <div class="col-xs-12 col-sm-4 col-md-4  col-sm-offset-4 col-md-offset-4" style="margin-top:3%;">
+           <img clas="img-responsive" src="../img/logIn-19.png">
+            <h6>Inicia sesión con tu nombre de usuario</h6>
+       <form class="simple-form "  novalidate >
+          <div class="login-form">
+              <div class="form-group">
+                  <input class="form-control login-field" type="text" placeholder="Nombre de usuario" id="login-name" required autofocus ng-model="vm.fdatos.nombre_usuario">
+                  <label class="login-field-icon fui-user" for="login-name"></label>
+              </div>
+               <div class="form-group">
+                  <input class="form-control login-field" type="password" placeholder="Contraseña" id="login-pass" required ng-model="vm.fdatos.contrasena">
+                  <label class="login-field-icon fui-lock" for="login-name"></label>
+              </div>
+              <div id='oculto' style='display:none;' class="error">
+                    Usuario y/o contraseña inválido
+              </div>
+              <button style="margin-top:3%;" type="submit" ng-click="vm.valusuario()" class="btn btn-warning btn-block">INICIAR SESIÓN</button>
+
+          </div>
+       </form> 
+      <a class="small" href="#" data-toggle="tooltip" data-placement="bottom" title="Habla con tu asesor">¿No puedes acceder a tu cuenta?</a>
+
+        </div>
+    </div>
+</div>
+    <script src="../js/angular.min.js"></script>
+    <script>
+    angular
+        .module('apiApp', [])
+        .controller('apiAppCtrl', ['$http', controladorPrincipal]);
+
+    function controladorPrincipal($http){
+        var vm=this;
+        
+       vm.valusuario = function(){
+            $http.get('/usuario/'+vm.fdatos.nombre_usuario).success(function(respuesta){
+                console.log("res:", respuesta);
+                if(respuesta.length==1 && respuesta[0].contrasena == vm.fdatos.contrasena)
+                  window.location = 'escritorio.html?valor='+respuesta[0].nombre_usuario;
+                else{
+                  document.getElementById('oculto').style.display = 'block';
+                }
+            });
+        }
+    }
+    </script>
+
+    <script>
+      function next(){
+        window.location = "escritorio.html";
+
+      }
+     $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();
+     });
+    </script>
+    <script src="../js/flat-ui.min.js"></script>
+</body>
+</html>

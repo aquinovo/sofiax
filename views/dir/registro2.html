@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>registro2</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+   <link rel="stylesheet" href="../css/uiSofia.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/flat-ui.css">
+    <script src="../js/jquery-3.1.1.min.js"></script>
+    <scritp src="../js/bootstrap.min.js"></scritp>
+</head>
+
+<body class="container-fluid bgGris" ng-app="apiApp" ng-controller="apiAppCtrl as vm">
+<div class="row" >
+    <div class="col-md-8 col-md-offset-2 text-center">
+    <a class="btn" href="#" type="button" data-toggle="modal" data-target="#myModal"><img id="img" class="img-thumbnail" src="../img/icon-defaultprofile.png"><span class="caret"></span></a>
+    
+    
+     <!--MODAL IMAGENES-->
+                <div id="myModal" style="margin-top:10%;" class="modal fade" role="dialog">
+                  <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h6 class="modal-title small">Selecciona una imagen</h6>
+                      </div>
+                      <div class="modal-body text-center">
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" >Cerrar</button>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+   
+
+    </div>
+</div>
+<div class="row" >
+    <div class="col-xs-12 col-sm-6 col-md-6 col-sm-offset-3 col-md-offset-3">
+        <form class="simple-form jumbotron"  novalidate ng-submit="vm.enviar()">
+          <div class="login-form">
+              <div class="form-group form-inline">
+                <input class="form-control login-field " type="text" placeholder="Nombre(s)" id="login-name" autofocus ng-model="vm.fdatos.nombre" required>
+                <input class="form-control login-field pull-right" type="text" placeholder="Apellidos" id="login-name" ng-model="vm.fdatos.apellidos" required>
+              </div>
+               <div class="form-group">
+                  <input class="form-control login-field" type="text" placeholder="Nombre de usuario" id="login-pass" ng-model="vm.fdatos.nombre_usuario" required>
+                  <div id='oculto' style='display:none;' class="error">
+                    El nombre de usuario no esta disponible
+                  </div>
+              </div>
+               <div class="form-group">
+                  <input class="form-control login-field" type="password" placeholder="Contraseña" id="login-pass" ng-model="vm.fdatos.contrasena" required>
+              </div>
+                <div class="form-group">
+                  <input class="form-control login-field" type="password" placeholder="Confirmar contraseña" id="login-pass" ng-model="vm.res.contrasena" required>
+                  <div id='oculto1' style='display:none;' class="error">
+                    Las contraseñas no coinciden.
+                  </div>
+              </div>
+              <button id="guardar" style="margin-top:3%;"  data-toggle="modal" class="btn btn-warning btn-block">GUARDAR</button>
+              
+               
+     <!--MODAL GUARDAR-->
+                <div id="modalSave" style="margin-top:10%;" class="modal fade" role="dialog">
+                  <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                      <div class="modal-body text-center">
+                      <p>¿La información que acabas de ingresar es correcta?</p>
+                      </div>
+                      <div class="modal-footer">
+                        <a  id="url" class="btn btn-warning" href="slide3.html">Sí</a>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>  
+
+          </div>
+       </form> 
+    </div>
+</div>
+ 
+  
+<!-----INTERACTIONS---->  
+<script src="../js/flat-ui.min.js"></script>
+<script src="../js/angular.min.js"></script>
+<script>
+    var uno=getParameterByName("sexo");
+    var sexo=document.getElementById("sexo");
+
+    function getParameterByName(name) {
+        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+        return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+    }
+    console.log(uno);
+
+    var img = document.getElementById("img");
+    var imagenes=document.getElementsByClassName("modal-body text-center");
+    var url= document.getElementById("url");
+
+
+    img.setAttribute("width","200");
+    img.setAttribute("height","200");
+    
+    angular
+        .module('apiApp', [])
+        .controller('apiAppCtrl', ['$http', controladorPrincipal]);
+
+    function controladorPrincipal($http){
+        var vm=this;
+        var usuario;
+        window.addEventListener = function(){      
+            $http.get('/avatar/').success(function(respuesta){
+            imagenes[0].innerHTML="";
+            for(x = 0; x < respuesta.length -1; x++){
+              imagenes[0].innerHTML+='<a href="#"><img id='+respuesta[x].id+' style ="margin:5px;" src="../img/'+respuesta[x].nombre+'.png" width="20%"  onclick="fun('+respuesta[x].id+')"/></a>';
+            } 
+
+          });
+        }
+        vm.enviar = function(){
+           vm.fdatos.id=null;
+           vm.fdatos.sexo=uno.toString();
+           $http.get('/usuario/'+vm.fdatos.nombre_usuario)
+              .success(function(data) { 
+                 if(data.length!=0)
+                    document.getElementById('oculto').style.display = 'block';
+                 else{
+                     if(vm.fdatos.contrasena==vm.res.contrasena){
+                               $http.post('/usuario', vm.fdatos)
+                                  .success(function(data) {
+                                          $http.get('/usuario/'+vm.fdatos.nombre_usuario)
+                                              .success(function(data) {   
+                                                window.location='slide3.html?nombre='+data[0].nombre+'&nombre_usuario='+data[0].nombre_usuario+'&contrasena='+data[0].contrasena+'&id='+data[0].id;                              
+                                                if(typeof vm.avatar == "undefined")
+                                                 crearescritorio(data[0].id,9);   
+                                                else  
+                                                 crearescritorio(data[0].id,vm.avatar[0].id);
+                                           });                   
+                                  })
+                                  .error(function(data) {
+                                      console.log('Error:' + data);
+                                });
+                           }
+                           else{
+                              document.getElementById('oculto1').style.display = 'block';
+                      }
+
+                }
+            });  
+        }
+        fun=function(entrada){
+                    $http.get('/avatar/'+entrada).success(function(respuesta){
+                        vm.avatar=respuesta;
+                        img.setAttribute("src","../img/"+respuesta[0].nombre+".png");  
+                    });
+        }
+        crearescritorio=function(usuario,avatar){
+
+                    var text = '{ "escritorio" : { "id":null  , "id_usuario":"'+usuario+'", "id_avatar":"'+avatar+'" , "puntos":0 , "calificacion_final": 0  } }';
+
+                    var obj = JSON.parse(text);
+
+                    $http.post('/escritorio', obj.escritorio)
+                    .success(function(data) {
+                      console.log(data);
+                                       
+                    })
+                    .error(function(data) {
+                      console.log('Error:' + data);
+                   });
+        }
+    }
+    
+</script>
+</body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>escritorio</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="../css/uiSofia.css">
+    <link rel=stylesheet href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/flat-ui.css">
+    <script type="text/javascript" src="../js/jquery-3.1.1.min.js"></script>
+
+</head>
+<body class="container-fluid homeScreen">
+<!--Margen inicial-->
+ <div  class="row"  style="margin-top:0%;">
+     
+ </div>
+ 
+<!--FILA BOTON PRINCIPAL-->
+ <div class="row" ng-app="apiApp" ng-controller="apiAppCtrl as vm">
+     <div class="col-md-12" >
+            <div class="btn-group pull-right" style="margin-top:0%; margin-right:5%;">   
+            <a data-toggle="dropdown" class="btn dropdown-toggle" href="#" type="button">
+             <!--<img class="img-thumbnail" src="../img/uno.png" width="80"> -->
+             <img class="img-thumbnail" id="img"/>
+             <span style="margin:70% 0 0 -15% ;" class="caret"></span></a>
+            <ul role="menu" class="dropdown-menu">
+            <li ng-click="vm.ir_a_escritorio()"><a>Mi Escritorio <span class="badge pull-right" id="span0"></span></a></li>
+              <li><a href="#">Mi Calificacion <span class="badge pull-right" id="span1">5/100</span></a></li>
+              <li><a href="#">Avance del bloque<span class="bagde pull-right" id="span2">0%</span></a></li>
+              <li ng-click="vm.imprimeimg()"><a href="#" data-toggle="modal" data-target="#myModal">Cambiar imagen de perfil</a></li>
+              <li class="divider"></li>
+              <li><a href="home.html"><span style="color:#E1AF48;"class="glyphicon glyphicon-remove-circle"></span>&nbsp;Cerrar sesión</a></li>
+            </ul>                
+          </div>
+     </div>
+         <!--MODAL IMAGENES-->
+                <div id="myModal" style="margin-top:10%;" class="modal fade" role="dialog" >
+                  <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h6 class="modal-title small">Selecciona una imagen</h6>
+                      </div>
+                      <div class="modal-body text-center">
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+ </div>
+<div class="row" ng-app="apiApp" ng-controller="apiAppCtrl as vm">
+    <div style="height:550px; background:#fff;" class="col-md-12" >
+       <img  style="position:relative; top:-20px;" class="img-responsive img-thumbnail" id="img2" width="140px"/>
+       <span style="position:relative; top:-25px; left:1%;">BLOQUE DIDÁCTICO I</span>
+       <span style="position:relative; top:-5px; right:13.5%;" id="bloque"></span>
+       <ol class="list-group" id="aa">
+       </ol>
+       
+    </div>   
+</div>
+          
+ 
+<script src="../js/flat-ui.min.js"></script>
+ <script src="../js/angular.min.js"></script>
+<script>
+  
+  var img = document.getElementById("img");
+  var texto = document.getElementById("aa");
+  var img2 = document.getElementById("img2");
+  var span1 = document.getElementById("span1");
+  var span2 = document.getElementById("span2");
+  var bloque = document.getElementById("bloque");
+  var imagenes=document.getElementsByClassName("modal-body text-center");
+  var uno=getParameterByName("id");
+
+  img.setAttribute("width","80");
+  angular
+        .module('apiApp', [])
+        .controller('apiAppCtrl', ['$http', controladorPrincipal]);
+    function controladorPrincipal($http){
+        var vm=this; 
+        vm.imprimeimg=function(){
+          $http.get('/avatar/').success(function(respuesta){
+            console.log("res:", respuesta);
+            imagenes[0].innerHTML="";
+            for(x = 0;  x < respuesta.length - 1; x++){
+              imagenes[0].innerHTML+='<a href="#"><img id='+respuesta[x].id+' style ="margin:5px;" src="../img/'+respuesta[x].nombre+'.png" width="20%"  onclick="fun('+respuesta[x].id+')"/></a>';
+            }
+
+            vm.fun=function(){
+                console.log("Hola");
+            } 
+        });
+        }  
+        vm.ir_a_escritorio=function(){
+            console.log("ir a escritorio");
+            $http.get('/usuario/'+uno+"/"+uno).success(function(respuesta){
+                console.log(respuesta[0]);
+                window.location="escritorio.html?valor="+respuesta[0].nombre_usuario;
+            });
+        }          
+        window.addEventListener= function(){
+          //var sexo=document.getElementById("sexo");
+          //var texto=document.createTextNode(uno);
+          //sexo.appendChild(texto);
+          $http.get('/escritorio/'+uno).success(function(respuesta){
+            console.log("res:", respuesta);                
+            vm.recuperacion=respuesta;
+            span1.innerHTML = respuesta[0].calificacion_final+"/100";
+            span2.innerHTML = respuesta[0].puntos+"%";
+            $http.get('/avatar/'+vm.recuperacion[0].id_avatar).success(function(respuesta){
+                console.log("res:", respuesta);
+                img.setAttribute("src","../img/"+respuesta[0].nombre+".png");
+                img2.setAttribute("src","../img/"+respuesta[0].nombre+".png");    
+
+            });
+          });
+
+          $http.get('/tema/').success(function(respuesta) {
+            texto.innerHTML="";
+            for(x in respuesta){
+              var a = parseInt(x)+1;
+              if(x == 0){
+                texto.innerHTML+='<a href="contenido.html?id='+uno+'&id_tema='+respuesta[x].id+'"><li class="list-group-item">'+a+". "+respuesta[x].nombre+' </li>';
+                  $http.get('/reto/'+uno).success(function(respuesta) {
+                    var long = respuesta.length;
+                    console.log("respuesta ",long);
+
+                  });
+              }
+              else
+                texto.innerHTML+='<li class="list-group-item">'+a+". "+respuesta[x].nombre+' </li>';
+            }
+          });
+          $http.get('/bloque/').success(function(respuesta) {
+            bloque.innerHTML="";
+            for(x in respuesta){
+              bloque.innerHTML+=respuesta[x].nombre;
+            }
+          });
+          vm.actualizar=function(){
+            $http.get('/escritorio/'+uno).success(function(respuesta){               
+                vm.recuperacion=respuesta;
+                $http.get('/avatar/'+vm.recuperacion[0].id_avatar).success(function(respuesta){
+                    img.setAttribute("src","../img/"+respuesta[0].nombre+".png");  
+                    img2.setAttribute("src","../img/"+respuesta[0].nombre+".png"); 
+                });
+            });
+          }
+          fun=function(entrada){
+              $.ajax({
+                url: '/escritorio/',
+                type: 'PUT',
+                data: { id_alumno: 1, id_avatar: entrada},
+                success: function(informacion){
+                      console.log(informacion);
+                }
+              });
+              $http.get('/escritorio/'+uno).success(function(respuesta){               
+                vm.recuperacion=respuesta;
+                $http.get('/avatar/'+vm.recuperacion[0].id_avatar).success(function(respuesta){
+                    img.setAttribute("src","../img/"+respuesta[0].nombre+".png");  
+                    img2.setAttribute("src","../img/"+respuesta[0].nombre+".png"); 
+                });
+            });
+          }
+        }
+    }
+    function getParameterByName(name) {
+        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+        return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+    }
+</script>
+<script>
+    $().ready(function(){
+       $(".mypop").popover({
+          placement:"bottom", 
+          content: "<a class='small'>Mi escritorio</a><br><a hrer='#' class ='small'>Cambiar imagen de perfil</a><hr><a href='#' class='small'>Cerrar sesión</a><br>",
+           html:true,
+           container:'body',
+           
+           
+       });
+    });
+    
+</script>
+</body>
+</html>
