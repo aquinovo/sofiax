@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>escritorio</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="../css/uiSofia.css">
+    <link rel="stylesheet" href="../css/circle.css">
+    <link rel=stylesheet href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/flat-ui.css">
+    <script type="text/javascript" src="../js/jquery-3.1.1.min.js"></script>
+
+</head>
+<body class="container-fluid bgGris">
+
+<div ng-app="apiApp" ng-controller="apiAppCtrl as vm" ng-init="vm.getusuario()"> 
+ <!--FILA BOTON PRINCIPAL-->
+ <div class="row">
+     <div class="col-md-12">
+            <div class="btn-group pull-right" style="margin-top:0%; margin-right:5%;">
+            <a data-toggle="dropdown" class="btn dropdown-toggle" href="#" type="button">
+             <img class="img-thumbnail" width="80" height="100" id="img"><span style="margin:70% 0 0 -15% ;" class="caret"></span></a>
+            <ul role="menu" class="dropdown-menu">
+              <li><a href="#">Mi Calificacion <span class="badge pull-right" id="span1"></span></a></li>
+              <li><a href="#">Avance del bloque <span class="bagde pull-right" id="span2"></span></a></li>
+              <li ng-click="vm.imprimeimg()"><a href="#" data-toggle="modal" data-target="#myModal">Cambiar imagen de perfil</a></li>
+              <li class="divider"></li>
+              <li><a href="home.html"><span style="color:#E1AF48;"class="glyphicon glyphicon-remove-circle"></span>&nbsp;Cerrar sesión</a></li>
+            </ul>
+                
+          </div>
+        
+         
+     </div>
+     
+         <!--MODAL IMAGENES-->
+                <div id="myModal" style="margin-top:10%;" class="modal fade" role="dialog">
+                  <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h6 class="modal-title small">Selecciona una imagen</h6>
+                      </div>
+                      <div class="modal-body text-center">
+
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+ 
+ </div>
+ 
+ 
+  <!--Main info-->
+    
+        <div class="row text-center">
+           <h5 >ÉTICA Y VALORES II</h5>
+           <img src="../img/ecII-02.png" width="150">
+           <div class="progress center-block" style="margin-top:2%; width:50%; height:10px;">
+            <div id="myBar" class="progress-bar progress-bar-warning" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+            <span class="sr-only">60% Complete (warning)</span>
+          </div>  
+    </div>
+        </div>
+    <!--boton-->    
+        <div class="row">
+           <div class="text-center">
+               <a id = "botonC"><button class="btn btn-inverse">CONTINUAR</button></a>
+            </div> 
+        </div>
+     
+    
+    <div class="row"  style="margin-top:2%;">
+       
+        <div class="col-sm-6 col-md-3">
+            <div  class="text-center"style="background:#76aadb">
+            <span style="color:#FFF;">TEMAS</span>
+            </div>
+            <div >
+               <ul class="list-group" id = "tema">
+               </ul>
+            </div>
+        </div> 
+        <div class="col-sm-6 col-md-3">
+          <div  class="text-center" style="background:#009045;">
+          <span style="color:#FFF;">TAREAS</span>
+          </div>
+          <div>
+               <ul class="list-group" id = "tarea">
+               </ul>
+            </div>
+        </div>  
+        <div class="col-sm-6 col-md-6">
+          <div class="text-center" style="background:#e7b624;">
+          <span style="color:#FFF;">MEDALLAS</span>
+          </div>
+         <div class="text-center" style="background:#F7F7F8;">
+               <ul class="list-group list-inline" id="BloqueMedallas">       
+             </ul>
+        </div>           
+        </div> 
+       
+    </div>  
+  
+  	<div id = "Modales">
+  	</div>
+<!-- OTRO MODAL-->
+
+                
+            <!-- Medallas
+                 
+                MEDALL TEMAS 
+                  titulo2:"El primer paso";
+                  body:"Para obtener esta medalla obten el máximo puntaje en todas las preguntas del tema 1 ";
+              
+                  titulo3:"De uno en uno";
+                  body:"Para obtener esta medalla obten el máximo puntaje en todas las preguntas del tema 2 ";
+                  
+                  titulo4:"La tercera es la vencida";
+                  body:"Para obtener esta medalla obten el máximo puntaje en todas las preguntas del tema 3 ";
+                  
+                   titulo5:"No hay cuarto malo";
+                  body:"Para obtener esta medalla obten el máximo puntaje en todas las preguntas del tema 4 ";
+                  
+                  
+                  
+                 MEDALL TAREAS
+                 
+                  titulo6:"Calentando motores";
+                  body:"Para obtener esta medalla sube todas las tareas pertenencientes al tema 1";
+              
+                  titulo7:"Aprendiendo repasando";
+                  body:"Para obtener esta medalla sube todas las tareas pertenencientes al tema 2";
+                  
+                  titulo8:"Ayudante de investigador";
+                  body:"Para obtener esta medalla sube todas las tareas pertenencientes al tema 3 ";
+                  
+                   titulo9:"Investigador";
+                  body:"Para obtener esta medalla sube todas las tareas pertenencientes al tema 4";
+                  
+                  
+                 MEDALLA BLOQUE 1 
+                  titulo10:"Debora libros";
+                  body:"Para obtener esta medalla concluye los 4 temas del bloque 1 de Sofiax: "Ética y Valores II";
+                  
+                 MEDALLA SOFIAX
+                 titulo10:"Seriamente 2.0";
+                  body:"Para obtener esta medalla obten el máximo de puntos en cada pregunta de todos los temas y sube todas las tareas de cada temas. Esta medalla abona 80 porciento de tu calificación final del bloque";
+                 
+                 MEDALLA GENIO
+                 titulo11:"Einstein";
+                  body:"Para obtener esta medalla contesta a la primera 20 preguntas sin hacer uso de pistas o leer las diapositivas";
+                 
+                  -->   
+                   
+</div>
+<!-- Consultas a base de datos-->
+<script src="../js/angular.min.js"></script>
+<script>
+
+	var img = document.getElementById("img");
+	var span1 = document.getElementById("span1");
+	var span2 = document.getElementById("span2");
+	var imagenes=document.getElementsByClassName("modal-body text-center");
+
+    angular
+        .module('apiApp', [])
+        .controller('apiAppCtrl', ['$http', controladorPrincipal]);
+
+
+
+    function controladorPrincipal($http){
+        var vm=this;
+        var id_usuario;
+        var id_escritorio;
+        var tareas; //Almacena todos los registros de la tabla tarea
+        var contTareas = new Array(); //Contador de tareas realizadas por tema
+        var contTotalTareas = new Array(); //Contador del total de tareas por tema
+        var puntosTotales = 3700; //Constante equivalente al 100% de puntos
+
+
+
+        vm.imprimeimg=function(){
+        	$http.get('/avatar/').success(function(respuesta){
+				    console.log("res:", respuesta);
+				    imagenes[0].innerHTML="";
+				    for(x = 0;  x < respuesta.length - 1; x++){
+				    	imagenes[0].innerHTML+='<a href="#" ><img id='+respuesta[x].id+' style ="margin:5px;" src="../img/'+respuesta[x].nombre+'.png" width="20%" onclick="fun('+respuesta[x].id+')"></a>';
+				    }
+				});        	
+        }
+
+        fun=function(entrada){
+              console.log(entrada); 
+              $.ajax({
+                url: '/escritorio/',
+                type: 'PUT',
+                data: { id_alumno: id_usuario, id_avatar: entrada},
+                success: function(informacion){
+                      console.log(informacion);
+                }
+              });
+              
+              $http.get('/escritorio/'+id_usuario).success(function(respuesta){             
+                    vm.recuperacion=respuesta;
+                    $http.get('/avatar/'+vm.recuperacion[0].id_avatar).success(function(respuesta){
+                        img.setAttribute("src","../img/"+respuesta[0].nombre+".png");  
+                    });
+                });
+        }
+       vm.getTareas = function () {
+           $http.get('/tarea/').success(function (respuesta) {
+              tareas = respuesta;
+              //Crea contador de tareas por tema
+              //La posicion 0 se ignora
+              for (var i = 0; i <= tareas.length; i++) {
+                contTareas.push(0);
+                contTotalTareas.push(0);
+              }
+
+              for (var i = 0; i < tareas.length; i++) {
+              	contTotalTareas[tareas[i].id_tema]++;
+              }
+           });           
+       }
+
+       //Primera funcion en ejecutarse
+       //Obtiene el id del usuario y luego carga el escritorio
+       vm.getusuario = function () {
+          var nombre = getQueryVariable("valor");
+           $http.get('/usuario/'+ nombre).success(function (respuesta) {
+              id_usuario = respuesta[0].id;
+              vm.getTareas();
+              vm.cargarEscritorio();
+
+
+	        $http.get('/escritorio/'+id_usuario).success(function(respuesta){                
+				vm.recuperacion=respuesta;
+				span1.innerHTML = respuesta[0].calificacion_final+"/100";
+				span2.innerHTML = respuesta[0].puntos+"%";
+				$http.get('/avatar/'+vm.recuperacion[0].id_avatar).success(function(respuesta){
+				    img.setAttribute("src","../img/"+respuesta[0].nombre+".png");  
+				});
+	        });
+           });
+       }
+
+       vm.cargarEscritorio = function(){
+        var puntosUsuario;
+        var calif;
+        var progreso;
+        var barraProgreso=document.getElementById("myBar");
+        var tema=document.getElementById("tema");
+        var tarea=document.getElementById("tarea");
+
+
+        
+        //Carga progressbar
+        $http.get('/escritorio/'+ id_usuario).success(function (respuesta) {
+
+              id_escritorio = respuesta[0].id;
+              puntosUsuario = respuesta[0].puntos;
+              calif = respuesta[0].calificacion_final;
+
+
+              //Habilita boton continuar
+              continuar(id_escritorio);
+
+              //Carga tareas realizadas
+              $http.get('/escritorio_perfil/'+id_escritorio).success(function (respuesta) {
+
+                  for (var i = 0; i < respuesta.length; i++) {
+                    //Busca tema al que pertenece la tarea      
+                    for (var j = 0; j < tareas.length; j++) {
+                      if(respuesta[i].id_tarea == tareas[j].id){
+                        var tema = tareas[j].id_tema;
+                        contTareas[tema]++;
+                      }
+                    }
+                  }
+              });
+              cargaTemas();
+              //cargaMedallas();
+              informacionMedallas();
+              progreso = parseInt(puntosUsuario * 100 / puntosTotales);
+              
+              barraProgreso.setAttribute("style", "width: " + progreso + "%");
+              barraProgreso.setAttribute("aria-valuenow", progreso);
+        });
+
+        function cargaTemas(){
+          //Carga temas
+          $http.get('/tema/').success(function(respuesta){
+                  //Generar lista de temas
+                  for(var i=0;i<respuesta.length;i++){
+                    var a=parseInt(i+1);
+                    tema.innerHTML += "<li class=list-group-item><a href = contenido.html?id="+id_usuario
+                    +"&id_tema="+respuesta[i].id+">"+respuesta[i].nombre+"</a></li>";
+                    tarea.innerHTML += "<li class=list-group-item><a href = tareas.html?id="+id_usuario+"&id_tema="+respuesta[i].id+">"+respuesta[i].nombre
+                   +"</a><span class=badge pull-right id=tema"+a+">"+contTareas[a]+"/"+contTotalTareas[a]+"</span></li>";
+                  }                   
+              });
+
+        }
+      }
+
+      function continuar(id_escritorio){
+        $http.get('/reto/'+id_escritorio).success(function(respuesta) {
+            var uno = 1;
+            var mayor = 1;
+            var botonContinuar = document.getElementById("botonC");
+            
+            for(x in respuesta){
+               	if( mayor < respuesta[x].id_tema)
+                 mayor = respuesta[x].id_tema;
+             }
+
+        	$http.get('/tema/').success(function(respuesta) {
+         
+            	for(x in respuesta){
+                	var a = parseInt(x)+1;
+                  	if(respuesta[x].id == mayor){
+                  		botonContinuar.setAttribute("href", "retos.html?id="+id_usuario+"&id_tema="+respuesta[x].id);
+                  	}
+                }
+        	});
+      	});
+    }
+
+    function cargaMedallas(porcentajePT, porcentajeTT, porcentajeRC, porcentajeRPI, porcentajePO){
+    	var medallasTema = document.getElementById("BloqueMedallas");
+    	
+    	creaModal("ModalReg", "Iniciando la aventura", "Objetivo completado, has iniciado tu aventura. Esta es tu primera medalla.");
+    	creaModal("ModalTema0", "El primer paso", "Para obtener esta medalla obten el máximo puntaje en todas las preguntas del tema 1.");
+    	creaModal("ModalTema1", "De uno en uno", "Para obtener esta medalla obten el máximo puntaje en todas las preguntas del tema 2.");
+    	creaModal("ModalTema2", "La tercera es la vencida", "Para obtener esta medalla obten el máximo puntaje en todas las preguntas del tema 3.");
+    	creaModal("ModalTema3", "No hay cuarto malo", "Para obtener esta medalla obten el máximo puntaje en todas las preguntas del tema 4.");
+    	creaModal("ModalTarea0", "Calentando motores", "Para obtener esta medalla sube todas las tareas pertenencientes al tema 1.");
+    	creaModal("ModalTarea1", "Aprendiendo repasando", "Para obtener esta medalla sube todas las tareas pertenencientes al tema 2.");
+    	creaModal("ModalTarea2", "Ayudante de investigador", "Para obtener esta medalla sube todas las tareas pertenencientes al tema 3.");
+    	creaModal("ModalTarea3", "Investigador", "Para obtener esta medalla sube todas las tareas pertenencientes al tema 4.");
+    	creaModal("ModalF", "Debora libros", "Para obtener esta medalla concluye los 4 temas del bloque 1 de Sofiax: 'Ética y Valores II'");
+    	creaModal("ModalFP", "Seriamente 2.0", "Para obtener esta medalla obten el máximo de puntos en cada pregunta de todos los temas y sube todas las tareas de cada temas. Esta medalla abona 80 por ciento de tu calificación final del bloque.");
+    	creaModal("ModalPI", "Einstein", "Para obtener esta medalla contesta a la primera 20 preguntas sin hacer uso de pistas o leer las diapositivas.");
+
+
+    	creaMedalla("#ModalReg", medallasTema, "MRegCompleto", 100, "../img/badges/badge-03.png", false);
+
+    	$http.get('/tema/').success(function(respuesta) {
+        	for (var i = 0; i < respuesta.length; i++) {
+        	 	creaMedalla("#ModalTema"+i, medallasTema, "MTema"+respuesta[i].id+"P", porcentajePT[i+1], "../img/badges/badge-0"+parseInt(4 + i)+".png", false);
+        	 } 
+        	//Medallas que se otorgan de acuerdo a las tareas por tema
+            for (var i = 0; i < respuesta.length; i++) {
+        	 	creaMedalla("#ModalTarea"+i, medallasTema, "MTema"+respuesta[i].id+"T", porcentajeTT[i+1], "../img/badges/badgeT-"+i+".png", false);
+        	 } 
+	    	//Medalla Bloque finalizado
+	    	creaMedalla("#ModalF", medallasTema, "BloqueF", porcentajeRC, "../img/badges/badge-12.png", false);
+	    	//Medalla Bloque finalizado con el total de puntos
+	    	creaMedalla("#ModalFP", medallasTema, "BloqueFP", porcentajePO, "../img/badges/badge-13.png", false);
+	    	//Medalla retos en el primer intento
+	    	creaMedalla("#ModalPI", medallasTema, "RetosPI", porcentajeRPI, "../img/badges/badge-14.png", false);
+
+      	});
+    }
+
+    function informacionMedallas(){
+    	var PuntosTema = new Array(); //Total de puntos obtenidos en el tema
+    	var TareasTema = new Array(); //Total de tareas hechas por tema
+    	var BloqueFinalizado; //Todos los retos se realizaron
+    	var BloqueFinalizadoPuntos; //Todos los retos se realizaron y además se consiguieron todos los puntos
+    	var RetosPrimerIntento = 0;	//Total de retos realizados en el primer intento
+    	var totalPuntos;	//Maxima cantidad de puntos posible
+    	var totalRetos;		//Maxima cantidad de retos posible
+    	var valorRetos = 100;	//Puntaje maximo por reto
+    	var RetosCompletados = 0;
+    	var Tareas;
+    	var PuntosObtenidos = 0;
+    	var totalTareasTema = new Array();
+
+    	$http.get('/tema/').success(function(respuesta) {
+    		
+    			for (var i = 0; i <= respuesta.length; i++) {
+    				PuntosTema.push(0);
+    				TareasTema.push(0);
+    			}
+    			$http.get('/trivia/').success(function(respuesta) {
+    				totalRetos = respuesta.length;
+    				totalPuntos = totalRetos * valorRetos;
+
+    				//Revisar
+    				
+    				$http.get('/tarea/').success(function(Tareas) {
+    					//Tareas = respuesta;
+    					$http.get('/escritorio_perfil/'+id_escritorio).success(function(respuesta) {
+		    				for (var i = 0; i < respuesta.length; i++) {
+		    					for (var j = 0; j < Tareas.length; j++) {
+		    						if(Tareas[j].id == respuesta[i].id_tarea){
+		    							TareasTema[Tareas[j].id_tema]++; 
+		    						}
+		    					}
+		    				}
+
+			    			$http.get('/reto/'+id_escritorio).success(function(respuesta) {
+			    				
+			    				if(respuesta.length != undefined){
+			    					RetosCompletados = respuesta.length;
+			    				}
+
+			    				for (var i = 0; i < respuesta.length; i++) {
+			    					PuntosTema[respuesta[i].id_tema] += respuesta[i].puntaje;
+			    					PuntosObtenidos += respuesta[i].puntaje;
+			    					if(respuesta[i].medallin == 1){
+			    						RetosPrimerIntento++;
+			    					}
+			    				}
+
+			    				
+			    				var porcentajePT = new Array();
+			    				for (var i = 0; i <= PuntosTema.length; i++) {
+			    					porcentajePT.push(PuntosTema[i] * 100 / (totalRetos * valorRetos));
+			    				}
+
+
+			    				var porcentajeTT = new Array();
+			    				for (var i = 0; i <= TareasTema.length; i++) {
+			    					porcentajeTT.push(TareasTema[i] * 100 / contTotalTareas[i]);
+			    				}
+
+			    				var porcentajeRC = RetosCompletados * 100 / totalRetos;
+			    				var porcentajeRPI = RetosPrimerIntento * 100/ totalRetos;
+			    				var porcentajePO = PuntosObtenidos * 100/ totalPuntos;	
+
+			    				puntosTotales = totalPuntos;
+
+			    				cargaMedallas(porcentajePT, porcentajeTT, porcentajeRC, porcentajeRPI, porcentajePO);
+			    			});
+	    				});
+    				});
+    			});
+    	});
+
+    }
+}
+
+	//Padre del elemento que se va a crear, id que llevará el nuevo elemento, porcentaje de progressbar, ruta de imagen, 
+	//valor booleano para indicar si se borra elemento anterior
+	function creaMedalla(idmodal, elementoPadre, idElemento, porcentaje, imagen, reemplazar){
+		if(reemplazar == true){
+			elementoPadre.innerHTML = "<li class='list-group-item' data-toggle='modal' data-target='"+idmodal+"' id = '"+idElemento+"' ><div class='c100 p"+parseInt(porcentaje)+" orange small' >"
+    		+"<span><img src='"+imagen+"' width='50'></span><div class='slice'><div class='bar'></div>"
+    		+"<div class='fill'></div></div></div></li>";
+		}else{
+			elementoPadre.innerHTML += "<li class='list-group-item' data-toggle='modal' data-target='"+idmodal+"' id = '"+idElemento+"' ><div class='c100 p"+parseInt(porcentaje)+" orange small' >"
+    		+"<span><img src='"+imagen+"' width='50'></span><div class='slice'><div class='bar'></div>"
+    		+"<div class='fill'></div></div></div></li>";
+			
+		}
+	}
+
+	function creaModal(idmodal, titulo, mensaje){
+		var modal = document.getElementById("Modales");
+
+		modal.innerHTML += "<div id='"+idmodal+"' style='margin-top:10%;' class='modal fade' role='dialog'>"
+			+"<div class='modal-dialog'><!-- Modal content--><div class='modal-content'><div class='modal-header'>"
+            +"<button type='button' class='close' data-dismiss='modal'>&times;</button>"
+            +"<h6 class='modal-title small'>"+titulo+"</h6></div><div class='modal-body text-center'>"
+            +"<p>"+mensaje+"</p></div><div class='modal-footer'>"
+            +"<button type='button' class='btn btn-default' data-dismiss='modal'>Cerrar</button></div></div></div></div>";  
+	}
+
+    function getQueryVariable(variable){
+      var query = window.location.search.substring(1);
+      var vars = query.split("&");
+      for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split("=");
+        if(pair[0] == variable){
+          return pair[1];
+        }
+      }
+      return false;
+    }
+
+</script>
+
+<!--Interacciones-->
+<script>
+    $().ready(function(){
+       $(".mypop").popover({
+        
+          placement:"bottom", 
+          content: "<a class='small'>Mi escritorio</a><br><a hrer='#' class ='small'>Cambiar imagen de perfil</a><hr><a href='#' class='small'>Cerrar sesión</a><br>",
+           html:true,
+           container:'body',
+           
+           
+       });
+    });
+</script>
+ 
+<script src="../js/flat-ui.min.js"></script>
+    
+</body>
+</html>
